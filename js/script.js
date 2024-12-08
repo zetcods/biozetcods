@@ -45,4 +45,13 @@ document.querySelectorAll(".gamein-btn").forEach((btn) => {
       typeLine(lines[2], "line3");
     });
   });
+
+  const audioElement = document.getElementById('myAudio');
+
+        // Pastikan audio diputar otomatis
+        document.addEventListener('DOMContentLoaded', () => {
+            audioElement.play().catch(error => {
+                console.error("Autoplay dicegah oleh browser: ", error);
+            });
+        });
   

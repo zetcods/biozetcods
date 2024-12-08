@@ -1,69 +1,52 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Audio dengan Interaksi</title>
     <style>
-       .typing-container {
-  font-family: Arial, sans-serif;
-  font-size: 18px;
-  line-height: 1.5;
-  white-space: nowrap;
-  overflow: hidden;
-  width: 100%;
-}
-
-.typing-text {
-  display: block; /* Setiap baris berada di bawah */
-  border-right: 2px solid black;
-  animation: blink 0.5s step-end infinite alternate;
-}
-
-@keyframes blink {
-  50% {
-    border-color: transparent;
-  }
-}
-
-
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
-    <div class="typing-container">
-        <p class="typing-text" id="line1">I am a Front End Developer with 2+ years</p>
-        <p class="typing-text" id="line2">experience in building responsive web applications.</p>
-        <p class="typing-text" id="line3">in HTML, CSS, JavaScript, and modern frameworks, I also specialize in creating interactive games and automation bots.</p>
-      </div>      
-      <script>
-const lines = [
-  "I am a Front End Developer with 2+ years",
-  "Baris kedua muncul setelah yang pertama.",
-  "in HTML, CSS, JavaScript, and modern frameworks. I also specialize in creating interactive games and automation bots."
-];
+    <h1>Putar Audio</h1>
+    <p>Klik tombol di bawah untuk memulai audio:</p>
+    <button id="playButton">Putar Audio</button>
+    <audio id="myAudio" loop>
+        <source src="audio/blue-yk.mp3" type="audio/mpeg">
+        Browser Anda tidak mendukung elemen audio.
+    </audio>
 
-function typeLine(text, elementId, callback) {
-  let index = 0;
+    <script>
+        const playButton = document.getElementById('playButton');
+        const audioElement = document.getElementById('myAudio');
 
-  function typeCharacter() {
-    if (index < text.length) {
-      document.getElementById(elementId).textContent += text[index];
-      index++;
-      setTimeout(typeCharacter, 50); // Kecepatan mengetik (50ms per karakter)
-    } else if (callback) {
-      setTimeout(callback, 500); // Penundaan sebelum mengetik baris berikutnya
-    }
-  }
-
-  typeCharacter();
-}
-
-// Mengetik semua baris secara berurutan
-typeLine(lines[0], "line1", () => {
-  typeLine(lines[1], "line2", () => {
-    typeLine(lines[2], "line3");
-  });
-});
-
-      </script>
+        playButton.addEventListener('click', () => {
+            audioElement.play()
+                .then(() => {
+                    playButton.textContent = "Audio Sedang Diputar";
+                    playButton.disabled = true; // Nonaktifkan tombol setelah audio diputar
+                })
+                .catch(error => {
+                    console.error("Gagal memutar audio:", error);
+                });
+        });
+    </script>
 </body>
 </html>
