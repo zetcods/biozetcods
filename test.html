@@ -1,0 +1,69 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+       .typing-container {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.5;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+}
+
+.typing-text {
+  display: block; /* Setiap baris berada di bawah */
+  border-right: 2px solid black;
+  animation: blink 0.5s step-end infinite alternate;
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="typing-container">
+        <p class="typing-text" id="line1">I am a Front End Developer with 2+ years</p>
+        <p class="typing-text" id="line2">experience in building responsive web applications.</p>
+        <p class="typing-text" id="line3">in HTML, CSS, JavaScript, and modern frameworks, I also specialize in creating interactive games and automation bots.</p>
+      </div>      
+      <script>
+const lines = [
+  "I am a Front End Developer with 2+ years",
+  "Baris kedua muncul setelah yang pertama.",
+  "in HTML, CSS, JavaScript, and modern frameworks. I also specialize in creating interactive games and automation bots."
+];
+
+function typeLine(text, elementId, callback) {
+  let index = 0;
+
+  function typeCharacter() {
+    if (index < text.length) {
+      document.getElementById(elementId).textContent += text[index];
+      index++;
+      setTimeout(typeCharacter, 50); // Kecepatan mengetik (50ms per karakter)
+    } else if (callback) {
+      setTimeout(callback, 500); // Penundaan sebelum mengetik baris berikutnya
+    }
+  }
+
+  typeCharacter();
+}
+
+// Mengetik semua baris secara berurutan
+typeLine(lines[0], "line1", () => {
+  typeLine(lines[1], "line2", () => {
+    typeLine(lines[2], "line3");
+  });
+});
+
+      </script>
+</body>
+</html>
